@@ -1312,6 +1312,8 @@ td .btn {
   gap: 24px;
   margin-top: 30px;
 }
+
+
 /* ---------- Password toggle + country selector ---------- */
 .password-toggle {
   color: var(--mute);
@@ -1354,156 +1356,278 @@ td .btn {
   margin: 0;
 }
 
+/* =========================================
+   STATS + BINANCE CONVERTER
+   ========================================= */
 
 .stats-converter {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 30px;
+  gap: 50px;
   align-items: center;
+
   padding: 70px 5%;
   box-sizing: border-box;
-}
 
-.stats-column {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 70px 40px;
-  box-sizing: border-box;
-}
-.stat-item {
-  text-align: center;
-}
-.stat-icon {
-  width: 70px;
-  height: 70px;
-  margin: 0 auto 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.stat-icon svg {
-  width: 68px;
-  height: 68px;
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.stat-item strong {
-  display: block;
-  font-size: clamp(42px, 4vw, 72px);
-  line-height: 1;
-  font-weight: 700;
-  letter-spacing: -2px;
+  background: var(--bg);
   color: var(--text);
 }
-.stat-item span {
-  display: block;
-  margin-top: 25px;
-  font-size: clamp(18px, 1.7vw, 27px);
-  line-height: 1.3;
-  color: var(--mute);
-}
+
+
+/* =========================================
+   BINANCE CONVERTER
+   ========================================= */
 
 .converter-column {
   width: 100%;
   min-width: 0;
-  display: block;
+
+  display: flex;
   justify-content: center;
   align-items: center;
+
   box-sizing: border-box;
-  border: 2px solid red;
 }
 
 .converter-card {
   width: min(100%, 430px);
   min-width: 0;
-  padding: 30px;
+
+  padding: 18px;
   box-sizing: border-box;
-  border-radius: 20px;
+
   background: var(--bg);
-  border: 1px solid var(--glow);
-  
+  color: var(--text);
+
+  border: 1px solid color-mix(
+    in srgb,
+    var(--text) 12%,
+    transparent
+  );
+
+  border-radius: 20px;
+
+  /*
+    Keep the Binance widget visually clear.
+    No heavy shadow or fading layer over the widget.
+  */
+  overflow: visible;
 }
+
 .binance-responsive {
   width: 100%;
   max-width: 300px;
+
   margin: 0 auto;
+
   position: relative;
+  box-sizing: border-box;
 }
 
 .binance-scale {
   width: 300px;
+
   transform-origin: top left;
-  --binance-scale: 1;
-  transform: scale(var(--binance-scale));
-  margin-bottom: calc(
-    (var(--binance-scale) - 1) * 100px
-  );
+  transform: scale(var(--binance-scale, 1));
+
+  /*
+    Prevent the scaled widget from being clipped.
+  */
+  position: relative;
 }
 
 
+/* =========================================
+   STATS
+   ========================================= */
 
-@media (min-width: 901px) {
-  .tv-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+.stats-column {
+  width: 100%;
+  min-width: 0;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 65px 35px;
+
+  box-sizing: border-box;
+}
+
+.stat-item {
+  min-width: 0;
+  text-align: center;
+}
+
+.stat-icon {
+  width: 64px;
+  height: 64px;
+
+  margin: 0 auto 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-icon svg {
+  width: 62px;
+  height: 62px;
+
+  fill: none;
+
+  stroke: var(--text);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  transition: stroke 0.25s ease;
+}
+
+.stat-item strong {
+  display: block;
+
+  color: var(--text);
+
+  font-size: clamp(34px, 3.5vw, 60px);
+  line-height: 1;
+
+  font-weight: 700;
+  letter-spacing: -1.8px;
+
+  white-space: nowrap;
+}
+
+.stat-item span {
+  display: block;
+
+  margin-top: 18px;
+
+  color: var(--mute);
+
+  font-size: clamp(15px, 1.5vw, 22px);
+  line-height: 1.3;
+
+  font-weight: 400;
+}
+
+
+/* =========================================
+   TABLET / SMALL LAPTOP
+   ========================================= */
+
+@media (max-width: 900px) {
+
+  .stats-converter {
+    grid-template-columns: 1fr;
+    gap: 70px;
+
+    padding: 60px 30px;
   }
-  .tv-grid .tv-wrap {
-    height: 580px;
-  }
-    .stats-converter {
-    grid-template-columns: 2fr;
-    gap: 45px;
-    padding: 60px 20px;
-  }
-  .stats-column {
-    gap: 55px 20px;
-  }
+
   .converter-column {
-    width: 50%;
+    width: 100%;
   }
+
   .converter-card {
     width: min(100%, 430px);
   }
 
-}
-@media (max-width: 480px) {
-  .tv-wrap.hero-tv {
-    height: 420px;
-  }
-  .tv-wrap.tv-ov {
-    height: 640px;
-  }
-  .market-overview {
-    width: 100%;
-    max-width: 480px;
-    overflow-x: scroll;
-  }
-    .stats-converter {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
   .stats-column {
-    gap: 45px 10px;
+    gap: 55px 25px;
   }
+
   .stat-item strong {
-    font-size: 36px;
+    font-size: clamp(32px, 7vw, 52px);
   }
+
   .stat-item span {
-    font-size: 16px;
-  }
-  .converter-card {
-    padding: 20px 12px;
+    font-size: 18px;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  * {
-    transition: none !important;
-    scroll-behavior: auto !important;
+
+/* =========================================
+   SMALL PHONES
+   ========================================= */
+
+@media (max-width: 500px) {
+
+  .stats-converter {
+    gap: 55px;
+
+    padding: 50px 16px;
+  }
+
+  .converter-card {
+    width: 100%;
+    padding: 14px;
+
+    border-radius: 16px;
+  }
+
+  .stats-column {
+    gap: 45px 12px;
+  }
+
+  .stat-icon {
+    width: 54px;
+    height: 54px;
+
+    margin-bottom: 14px;
+  }
+
+  .stat-icon svg {
+    width: 52px;
+    height: 52px;
+  }
+
+  .stat-item strong {
+    font-size: clamp(28px, 8vw, 42px);
+    letter-spacing: -1px;
+  }
+
+  .stat-item span {
+    margin-top: 12px;
+    font-size: 15px;
+  }
+}
+
+
+/* =========================================
+   VERY SMALL SCREENS
+   ========================================= */
+
+@media (max-width: 330px) {
+
+  .stats-converter {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .converter-card {
+    padding: 10px;
+  }
+
+  .stats-column {
+    gap: 40px 8px;
+  }
+
+  .stat-item strong {
+    font-size: 26px;
+  }
+
+  .stat-item span {
+    font-size: 13px;
+  }
+
+  .stat-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .stat-icon svg {
+    width: 46px;
+    height: 46px;
   }
 }
