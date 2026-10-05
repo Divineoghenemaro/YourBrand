@@ -1125,7 +1125,9 @@ document.addEventListener("DOMContentLoaded", () => {
       Keep the scaled widget from creating
       unnecessary horizontal overflow.
     */
-    scaleWrapper.style.height = `${300 * scale}px`;
+const widgetHeight = scaleWrapper.scrollHeight;
+
+scaleWrapper.style.height = `${widgetHeight * scale}px`;
   }
 
 
