@@ -1410,9 +1410,9 @@ td .btn {
 }
 
 .converter-column {
-  position: relative;
+  width: 100%;
   min-width: 0;
-  display: flex;
+  display: block;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
@@ -1420,7 +1420,7 @@ td .btn {
 }
 
 .converter-card {
-  width: min(50%, 430px);
+  width: min(100%, 430px);
   min-width: 0;
   padding: 30px;
   box-sizing: border-box;
