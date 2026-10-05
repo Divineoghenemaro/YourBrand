@@ -1143,106 +1143,48 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =========================================
      THEME DETECTION
      ========================================= */
+function getCurrentTheme() {
+  const root = document.documentElement;
 
-  function getCurrentTheme() {
-
-    const root = document.documentElement;
-
-    /*
-      Explicit website theme takes priority.
-    */
-    if (root.dataset.theme === "dark") {
-      return "dark";
-    }
-
-    if (root.dataset.theme === "light") {
-      return "light";
-    }
-
-    /*
-      Fall back to the user's system theme.
-    */
-    return window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches
-      ? "dark"
-      : "light";
+  if (root.dataset.theme === "dark") {
+    return "dark";
   }
 
-
-  /* =========================================
-     UPDATE BINANCE THEME
-     ========================================= */
-
-  function updateBinanceTheme() {
-
-    const theme = getCurrentTheme();
-
-    widget.dataset.theme = theme;
+  if (root.dataset.theme === "light") {
+    return "light";
   }
 
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
 
-  /*
-    Set the correct theme when the page loads.
-  */
+function updateBinanceTheme() {
+  if (!widget) return;
+
+  widget.dataset.theme = getCurrentTheme();
+}
+
+updateBinanceTheme();
+
+const themeObserver = new MutationObserver(() => {
   updateBinanceTheme();
+});
 
+themeObserver.observe(document.documentElement, {
+  attributes: true,
+  attributeFilter: ["data-theme"]
+});
 
-  /* =========================================
-     WATCH WEBSITE THEME TOGGLE
-     ========================================= */
+const systemTheme = window.matchMedia(
+  "(prefers-color-scheme: dark)"
+);
 
-  const themeObserver = new MutationObserver(() => {
-
+systemTheme.addEventListener("change", () => {
+  if (!document.documentElement.hasAttribute("data-theme")) {
     updateBinanceTheme();
-
-    /*
-      Give the third-party widget a moment to
-      respond before recalculating its size.
-    */
-    setTimeout(() => {
-      resizeBinanceWidget();
-    }, 100);
-
-  });
-
-
-  themeObserver.observe(
-    document.documentElement,
-    {
-      attributes: true,
-      attributeFilter: ["data-theme"]
-    }
-  );
-
-
-  /* =========================================
-     WATCH SYSTEM THEME
-     ========================================= */
-
-  const systemTheme = window.matchMedia(
-    "(prefers-color-scheme: dark)"
-  );
-
-
-  systemTheme.addEventListener(
-    "change",
-    () => {
-
-      /*
-        Only follow system changes when the
-        website doesn't have an explicit theme.
-      */
-      if (
-        !document.documentElement.hasAttribute(
-          "data-theme"
-        )
-      ) {
-        updateBinanceTheme();
-      }
-
-    }
-  );
+  }
+});
 
 });
 
