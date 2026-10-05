@@ -1312,10 +1312,48 @@ td .btn {
   gap: 24px;
   margin-top: 30px;
 }
+/* ---------- Password toggle + country selector ---------- */
+.password-toggle {
+  color: var(--mute);
+  display: grid;
+  place-items: center;
+  width: 36px;
+  padding: 0;
+}
+.password-toggle:hover,
+.password-toggle:focus-visible {
+  color: var(--accent);
+  outline: none;
+}
+.password-toggle svg {
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+.iti {
+  display: block;
+  width: 100%;
+  --iti-border-color: var(--fieldline);
+  --iti-dropdown-bg: var(--panel);
+  --iti-hover-color: var(--field);
+  --iti-dialcode-color: var(--mute);
+  --iti-arrow-color: var(--mute);
+}
+.iti__selected-dial-code {
+  color: var(--text);
+}
+.iti__dropdown-content {
+  background: var(--panel);
+  color: var(--text);
+  border-color: var(--fieldline);
+}
+.iti__country.iti__highlight {
+  background: var(--field);
+}
+.iti__search-input {
+  margin: 0;
+}
 
-/* ==============================
-   MAIN SECTION
-============================== */
 
 .stats-converter {
   width: 100%;
@@ -1326,10 +1364,6 @@ td .btn {
   padding: 70px 5%;
   box-sizing: border-box;
 }
-
-/* ==============================
-   COLUMN 1
-============================== */
 
 .stats-column {
   width: 100%;
@@ -1375,11 +1409,6 @@ td .btn {
   color: var(--mute);
 }
 
-
-/* ==============================
-   COLUMN 2
-============================== */
-
 .converter-column {
   position: relative;
   width: 100%;
@@ -1390,167 +1419,33 @@ td .btn {
   box-sizing: border-box;
 }
 
-/* Small div overflowing above column 2 */
-.converter-floating {
-  position: absolute;
-  top: -35px;
-  left: 50%;
-  transform: translateX(-50%);
-  transform: translateY(-50%);
-  width: 80px;
-  height: 35px;
-  border-radius: 12px;
-  background: var(--accent);
-  border-bottom: 0;
-  z-index: 3;
-}
-
-
-/* ==============================
-   WIDGET CARD
-============================== */
-
 .converter-card {
   width: min(100%, 430px);
-
   min-width: 0;
-
   padding: 30px;
-
   box-sizing: border-box;
-
   border-radius: 20px;
-
-  background: var(--card-bg, #ffffff);
-
-  border: 1px solid var(--section-border, #dddddd);
-
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
-
+  background: var(--bg);
+  border: 1px solid var(--glow);
   overflow: hidden;
 }
-
-
-/* ==============================
-   BINANCE RESPONSIVE WRAPPER
-============================== */
-
 .binance-responsive {
   width: 100%;
   max-width: 300px;
-
   margin: 0 auto;
-
   position: relative;
 }
 
-
-/*
-   Binance's native widget has a 300px
-   minimum width.
-
-   The scale wrapper allows it to visually
-   shrink below 300px on very small screens.
-*/
-
 .binance-scale {
   width: 300px;
-
   transform-origin: top left;
-
   --binance-scale: 1;
-
   transform: scale(var(--binance-scale));
-
   margin-bottom: calc(
     (var(--binance-scale) - 1) * 100px
   );
 }
 
-
-/* ==============================
-   DARK MODE
-============================== */
-
-:root[data-theme="dark"] {
-  --section-bg: #040d0b;
-  --section-text: #ffffff;
-  --section-muted: #a7aaa9;
-  --card-bg: #071914;
-  --section-border: rgba(0, 255, 131, 0.18);
-}
-
-
-/* ==============================
-   LIGHT MODE
-============================== */
-
-:root[data-theme="light"] {
-  --section-bg: #ffffff;
-  --section-text: #111111;
-  --section-muted: #666666;
-  --card-bg: #ffffff;
-  --section-border: #e5e5e5;
-}
-
-
-/* ==============================
-   MOBILE
-============================== */
-
-@media (max-width: 800px) {
-
-  .stats-converter {
-    grid-template-columns: 1fr;
-
-    gap: 70px;
-
-    padding: 60px 20px;
-  }
-
-  .stats-column {
-    gap: 55px 20px;
-  }
-
-  .converter-column {
-    width: 100%;
-  }
-
-  .converter-card {
-    width: min(100%, 430px);
-  }
-
-}
-
-
-/* ==============================
-   VERY SMALL SCREENS
-============================== */
-
-@media (max-width: 360px) {
-
-  .stats-converter {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-
-  .stats-column {
-    gap: 45px 10px;
-  }
-
-  .stat-item strong {
-    font-size: 36px;
-  }
-
-  .stat-item span {
-    font-size: 16px;
-  }
-
-  .converter-card {
-    padding: 20px 12px;
-  }
-
-}
 
 
 @media (min-width: 901px) {
@@ -1560,6 +1455,21 @@ td .btn {
   .tv-grid .tv-wrap {
     height: 580px;
   }
+    .stats-converter {
+    grid-template-columns: 1fr;
+    gap: 70px;
+    padding: 60px 20px;
+  }
+  .stats-column {
+    gap: 55px 20px;
+  }
+  .converter-column {
+    width: 100%;
+  }
+  .converter-card {
+    width: min(100%, 430px);
+  }
+
 }
 @media (max-width: 480px) {
   .tv-wrap.hero-tv {
@@ -1573,6 +1483,22 @@ td .btn {
     max-width: 480px;
     overflow-x: scroll;
   }
+    .stats-converter {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .stats-column {
+    gap: 45px 10px;
+  }
+  .stat-item strong {
+    font-size: 36px;
+  }
+  .stat-item span {
+    font-size: 16px;
+  }
+  .converter-card {
+    padding: 20px 12px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1580,46 +1506,4 @@ td .btn {
     transition: none !important;
     scroll-behavior: auto !important;
   }
-}
-
-/* ---------- Password toggle + country selector ---------- */
-.password-toggle {
-  color: var(--mute);
-  display: grid;
-  place-items: center;
-  width: 36px;
-  padding: 0;
-}
-.password-toggle:hover,
-.password-toggle:focus-visible {
-  color: var(--accent);
-  outline: none;
-}
-.password-toggle svg {
-  width: 20px;
-  height: 20px;
-  pointer-events: none;
-}
-.iti {
-  display: block;
-  width: 100%;
-  --iti-border-color: var(--fieldline);
-  --iti-dropdown-bg: var(--panel);
-  --iti-hover-color: var(--field);
-  --iti-dialcode-color: var(--mute);
-  --iti-arrow-color: var(--mute);
-}
-.iti__selected-dial-code {
-  color: var(--text);
-}
-.iti__dropdown-content {
-  background: var(--panel);
-  color: var(--text);
-  border-color: var(--fieldline);
-}
-.iti__country.iti__highlight {
-  background: var(--field);
-}
-.iti__search-input {
-  margin: 0;
 }
