@@ -99,7 +99,7 @@ a {
 header {
   position: sticky;
   top: 0;
-  z-index: 5;
+  z-index: 100;
   background: color-mix(in srgb, var(--bg) 88%, transparent);
   backdrop-filter: blur(10px);
   border-bottom: 0.5px solid var(--line);
@@ -1403,6 +1403,9 @@ td .btn {
   max-width: 300px;
   margin: 0 auto;
   box-sizing: border-box;
+
+  /* Needed for the feather */
+  position: relative;
 }
 
 .binance-scale {
@@ -1411,6 +1414,24 @@ td .btn {
   transform: scale(var(--binance-scale, 1));
 }
 
+
+.binance-responsive::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 45px;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--bg) 25%, transparent) 35%,
+    color-mix(in srgb, var(--bg) 70%, transparent) 70%,
+    var(--bg) 100%
+  );
+}
 
 /* =========================================
    STATS
