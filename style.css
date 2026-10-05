@@ -1391,7 +1391,7 @@ td .btn {
 }
 
 .converter-card {
-  width: min(100%, 430px);
+  width: min(100%, 300px);
   min-width: 0;
 
   padding: 18px;
@@ -1412,7 +1412,7 @@ td .btn {
     Keep the Binance widget visually clear.
     No heavy shadow or fading layer over the widget.
   */
-  overflow: visible;
+  overflow: hidden;
 }
 
 .binance-responsive {
@@ -1476,7 +1476,7 @@ td .btn {
 
   fill: none;
 
-  stroke: var(--text);
+  stroke: var(--accent);
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
