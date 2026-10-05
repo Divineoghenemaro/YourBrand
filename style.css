@@ -1353,7 +1353,7 @@ td .btn {
   width: 68px;
   height: 68px;
   fill: none;
-  stroke: var(--text);
+  stroke: var(--accent);
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -1361,25 +1361,18 @@ td .btn {
 
 .stat-item strong {
   display: block;
-
   font-size: clamp(42px, 4vw, 72px);
   line-height: 1;
-
   font-weight: 700;
   letter-spacing: -2px;
-
-  color: var(--section-text, #111111);
+  color: var(--text);
 }
-
 .stat-item span {
   display: block;
-
   margin-top: 25px;
-
   font-size: clamp(18px, 1.7vw, 27px);
   line-height: 1.3;
-
-  color: var(--section-muted, #777777);
+  color: var(--mute);
 }
 
 
@@ -1389,39 +1382,27 @@ td .btn {
 
 .converter-column {
   position: relative;
-
   width: 100%;
   min-width: 0;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   box-sizing: border-box;
 }
 
-
 /* Small div overflowing above column 2 */
-
 .converter-floating {
   position: absolute;
-
   top: -35px;
   left: 50%;
-
   transform: translateX(-50%);
-
+  transform: translateY(-50%);
   width: 80px;
   height: 35px;
-
-  border-radius: 12px 12px 0 0;
-
-  background: var(--section-bg, #ffffff);
-
-  border: 1px solid var(--section-border, #dddddd);
+  border-radius: 12px;
+  background: var(--accent);
   border-bottom: 0;
-
-  z-index: 5;
+  z-index: 3;
 }
 
 
