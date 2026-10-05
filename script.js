@@ -1090,6 +1090,164 @@
   }
 
 
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const converter = document.querySelector(".binance-responsive");
+  const scaleWrapper = document.querySelector(".binance-scale");
+  const widget = document.querySelector(".binance-converter-widget");
+
+  if (!converter || !scaleWrapper || !widget) return;
+
+
+  /* =========================================
+     BINANCE WIDGET RESPONSIVE SCALING
+     Native Binance minimum = 300px
+     ========================================= */
+
+  function resizeBinanceWidget() {
+
+    const availableWidth = converter.clientWidth;
+
+    if (!availableWidth) return;
+
+    const scale = Math.min(
+      1,
+      availableWidth / 300
+    );
+
+    scaleWrapper.style.setProperty(
+      "--binance-scale",
+      scale
+    );
+
+    /*
+      Keep the scaled widget from creating
+      unnecessary horizontal overflow.
+    */
+    scaleWrapper.style.height = `${300 * scale}px`;
+  }
+
+
+  /* Run initially */
+  resizeBinanceWidget();
+
+
+  /* Run whenever viewport changes */
+  window.addEventListener(
+    "resize",
+    resizeBinanceWidget
+  );
+
+
+  /* =========================================
+     THEME DETECTION
+     ========================================= */
+
+  function getCurrentTheme() {
+
+    const root = document.documentElement;
+
+    /*
+      Explicit website theme takes priority.
+    */
+    if (root.dataset.theme === "dark") {
+      return "dark";
+    }
+
+    if (root.dataset.theme === "light") {
+      return "light";
+    }
+
+    /*
+      Fall back to the user's system theme.
+    */
+    return window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches
+      ? "dark"
+      : "light";
+  }
+
+
+  /* =========================================
+     UPDATE BINANCE THEME
+     ========================================= */
+
+  function updateBinanceTheme() {
+
+    const theme = getCurrentTheme();
+
+    widget.dataset.theme = theme;
+  }
+
+
+  /*
+    Set the correct theme when the page loads.
+  */
+  updateBinanceTheme();
+
+
+  /* =========================================
+     WATCH WEBSITE THEME TOGGLE
+     ========================================= */
+
+  const themeObserver = new MutationObserver(() => {
+
+    updateBinanceTheme();
+
+    /*
+      Give the third-party widget a moment to
+      respond before recalculating its size.
+    */
+    setTimeout(() => {
+      resizeBinanceWidget();
+    }, 100);
+
+  });
+
+
+  themeObserver.observe(
+    document.documentElement,
+    {
+      attributes: true,
+      attributeFilter: ["data-theme"]
+    }
+  );
+
+
+  /* =========================================
+     WATCH SYSTEM THEME
+     ========================================= */
+
+  const systemTheme = window.matchMedia(
+    "(prefers-color-scheme: dark)"
+  );
+
+
+  systemTheme.addEventListener(
+    "change",
+    () => {
+
+      /*
+        Only follow system changes when the
+        website doesn't have an explicit theme.
+      */
+      if (
+        !document.documentElement.hasAttribute(
+          "data-theme"
+        )
+      ) {
+        updateBinanceTheme();
+      }
+
+    }
+  );
+
+});
+
+
+
 /* =========================================================
      PLATFORMS SCROLLING BAR (right to left, with real logos)
      slug = icon name in the Simple Icons library (loaded from a CDN)
