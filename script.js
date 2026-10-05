@@ -1125,9 +1125,7 @@ document.addEventListener("DOMContentLoaded", () => {
       Keep the scaled widget from creating
       unnecessary horizontal overflow.
     */
-const widgetHeight = scaleWrapper.scrollHeight;
-
-scaleWrapper.style.height = `${widgetHeight * scale}px`;
+    scaleWrapper.style.height = `${300 * scale}px`;
   }
 
 
@@ -1145,48 +1143,106 @@ scaleWrapper.style.height = `${widgetHeight * scale}px`;
   /* =========================================
      THEME DETECTION
      ========================================= */
-function getCurrentTheme() {
-  const root = document.documentElement;
 
-  if (root.dataset.theme === "dark") {
-    return "dark";
+  function getCurrentTheme() {
+
+    const root = document.documentElement;
+
+    /*
+      Explicit website theme takes priority.
+    */
+    if (root.dataset.theme === "dark") {
+      return "dark";
+    }
+
+    if (root.dataset.theme === "light") {
+      return "light";
+    }
+
+    /*
+      Fall back to the user's system theme.
+    */
+    return window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches
+      ? "dark"
+      : "light";
   }
 
-  if (root.dataset.theme === "light") {
-    return "light";
+
+  /* =========================================
+     UPDATE BINANCE THEME
+     ========================================= */
+
+  function updateBinanceTheme() {
+
+    const theme = getCurrentTheme();
+
+    widget.dataset.theme = theme;
   }
 
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
-}
 
-function updateBinanceTheme() {
-  if (!widget) return;
-
-  widget.dataset.theme = getCurrentTheme();
-}
-
-updateBinanceTheme();
-
-const themeObserver = new MutationObserver(() => {
+  /*
+    Set the correct theme when the page loads.
+  */
   updateBinanceTheme();
-});
 
-themeObserver.observe(document.documentElement, {
-  attributes: true,
-  attributeFilter: ["data-theme"]
-});
 
-const systemTheme = window.matchMedia(
-  "(prefers-color-scheme: dark)"
-);
+  /* =========================================
+     WATCH WEBSITE THEME TOGGLE
+     ========================================= */
 
-systemTheme.addEventListener("change", () => {
-  if (!document.documentElement.hasAttribute("data-theme")) {
+  const themeObserver = new MutationObserver(() => {
+
     updateBinanceTheme();
-  }
-});
+
+    /*
+      Give the third-party widget a moment to
+      respond before recalculating its size.
+    */
+    setTimeout(() => {
+      resizeBinanceWidget();
+    }, 100);
+
+  });
+
+
+  themeObserver.observe(
+    document.documentElement,
+    {
+      attributes: true,
+      attributeFilter: ["data-theme"]
+    }
+  );
+
+
+  /* =========================================
+     WATCH SYSTEM THEME
+     ========================================= */
+
+  const systemTheme = window.matchMedia(
+    "(prefers-color-scheme: dark)"
+  );
+
+
+  systemTheme.addEventListener(
+    "change",
+    () => {
+
+      /*
+        Only follow system changes when the
+        website doesn't have an explicit theme.
+      */
+      if (
+        !document.documentElement.hasAttribute(
+          "data-theme"
+        )
+      ) {
+        updateBinanceTheme();
+      }
+
+    }
+  );
 
 });
 
