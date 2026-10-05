@@ -1411,23 +1411,23 @@ td .btn {
 
 .converter-column {
   position: relative;
-  width: 100%;
   min-width: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+  border: 2px solid red;
 }
 
 .converter-card {
-  width: min(100%, 430px);
+  width: min(50%, 430px);
   min-width: 0;
   padding: 30px;
   box-sizing: border-box;
   border-radius: 20px;
   background: var(--bg);
   border: 1px solid var(--glow);
-  overflow: hidden;
+  
 }
 .binance-responsive {
   width: 100%;
@@ -1456,15 +1456,15 @@ td .btn {
     height: 580px;
   }
     .stats-converter {
-    grid-template-columns: 1fr;
-    gap: 70px;
+    grid-template-columns: 2fr;
+    gap: 45px;
     padding: 60px 20px;
   }
   .stats-column {
     gap: 55px 20px;
   }
   .converter-column {
-    width: 100%;
+    width: 50%;
   }
   .converter-card {
     width: min(100%, 430px);
