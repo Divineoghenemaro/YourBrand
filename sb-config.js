@@ -4,8 +4,8 @@
  * The anon key is meant to be public; your data is protected by the
  * Row Level Security rules in supabase-schema.sql. */
 window.SDSS_SUPABASE = {
-  URL: "",      // e.g. "https://abcdxyz.supabase.co"
-  ANON_KEY: ""  // the "anon public" key
+  URL: "https://jvkbxwlnjwmbloazdviq.supabase.co",      // e.g. "https://abcdxyz.supabase.co"
+  ANON_KEY: "sb_publishable_ahb_AY37Pw9aBopTsoPgCA_pOhBfG2G"  // the "anon public" key
 };
 // Load the Supabase client library only when a project is configured.
 if (window.SDSS_SUPABASE.URL && window.SDSS_SUPABASE.ANON_KEY) {
