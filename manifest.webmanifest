@@ -1,0 +1,11 @@
+{
+  "name": "Your Brand",
+  "short_name": "Your Brand",
+  "description": "Trade crypto, forex and stocks with live prices.",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#06120f",
+  "theme_color": "#0f9d73",
+  "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

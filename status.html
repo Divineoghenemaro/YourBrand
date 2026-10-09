@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Connection check</title>
+<meta name="robots" content="noindex,nofollow,noarchive">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="sb-config.js"></script>
+<style>
+  :root{color-scheme:light dark;--bg:#f3f7f5;--card:#fff;--text:#0b1f19;--mute:#5b7068;--ok:#0f9d73;--bad:#c62828;--warn:#b26a00;--line:#d9e5df}
+  @media (prefers-color-scheme:dark){:root{--bg:#06120f;--card:#0d1f19;--text:#e8f5ef;--mute:#9bb5aa;--ok:#2fdca3;--bad:#ff6b6b;--warn:#ffb74d;--line:#1d3a31}}
+  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:24px}
+  main{max-width:760px;margin:0 auto}
+  h1{font-size:1.8rem;margin:0 0 4px} p.sub{color:var(--mute);margin:0 0 20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px 18px}
+  .row{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .row:last-child{border-bottom:0} .row b{display:block} .row small{color:var(--mute);display:block;word-break:break-word}
+  .i{font-weight:800;font-size:18px;text-align:center}.ok .i{color:var(--ok)}.bad .i{color:var(--bad)}.warn .i{color:var(--warn)}.run .i{color:var(--mute)}
+  .hint{color:var(--warn);font-size:14px;margin-top:2px}
+  button{margin-top:16px;background:var(--ok);color:#04231a;border:0;border-radius:12px;padding:12px 20px;font:700 15px inherit;cursor:pointer}
+  a{color:var(--ok)}
+</style>
+</head>
+<body>
+<main>
+  <h1>Connection check</h1>
+  <p class="sub">Runs in your browser to find out why something isn't connecting. Share the report if you need help.</p>
+  <div class="card" id="out"></div>
+  <button id="copy" type="button">Copy report</button>
+  <p class="sub" style="margin-top:18px"><a href="index.html">Back to the site</a></p>
+</main>
+<script>
+(function () {
+  "use strict";
+  var out = document.getElementById("out"), report = [];
+  function row(label, state, detail, hint) {
+    var d = document.createElement("div");
+    d.className = "row " + state;
+    d.innerHTML = '<span class="i">' + ({ ok: "✓", bad: "✗", warn: "!", run: "…" }[state]) + "</span><div><b></b><small></small><div class=\"hint\"></div></div>";
+    d.querySelector("b").textContent = label;
+    d.querySelector("small").textContent = detail || "";
+    d.querySelector(".hint").textContent = hint || "";
+    out.appendChild(d);
+    report.push((state === "ok" ? "[OK]   " : state === "bad" ? "[FAIL] " : "[WARN] ") + label + (detail ? " — " + detail : "") + (hint ? " | " + hint : ""));
+  }
+  function timeout(ms, p) {
+    return new Promise(function (res, rej) { var t = setTimeout(function () { rej(new Error("timed out")); }, ms); p.then(function (v) { clearTimeout(t); res(v); }, function (e) { clearTimeout(t); rej(e); }); });
+  }
+
+  function environment() {
+    row("Browser", "ok", navigator.userAgent);
+    if (location.protocol === "file:") row("How the page is opened", "warn", "file:// (double-clicked)", "Serve it instead: run `python3 -m http.server 8080` in this folder and open http://localhost:8080 — Chrome limits some features on file:// pages.");
+    else row("How the page is opened", "ok", location.origin);
+    row("Secure context (HTTPS or localhost)", window.isSecureContext ? "ok" : "bad", String(window.isSecureContext), window.isSecureContext ? "" : "Use https:// or http://localhost. Password hashing needs a secure context.");
+    var ls = false; try { localStorage.setItem("__t", "1"); localStorage.removeItem("__t"); ls = true; } catch (e) {}
+    row("Local storage", ls ? "ok" : "bad", ls ? "available" : "blocked", ls ? "" : "Allow site data / cookies for this site (Chrome: Settings → Privacy → Site settings), or leave Incognito's block-all-cookies off.");
+    row("WebSocket support", "WebSocket" in window ? "ok" : "bad");
+    row("Web Crypto", window.crypto && crypto.subtle ? "ok" : "bad");
+  }
+
+  async function supabase() {
+    var c = window.SDSS_SUPABASE || {};
+    if (!c.URL && !c.ANON_KEY) { row("Supabase configuration", "warn", "sb-config.js is empty", "Local-only mode: data stays in this browser. To sync across devices, paste your Project URL and anon key into sb-config.js."); return; }
+    var okCfg = /^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(c.URL || "") && (c.ANON_KEY || "").length > 20;
+    row("Supabase configuration", okCfg ? "ok" : "bad", c.URL, okCfg ? "" : "The URL should look like https://xxxx.supabase.co and the key should be the long 'anon public' key.");
+    row("Supabase library", window.supabase && window.supabase.createClient ? "ok" : "bad", window.supabase ? "loaded" : "not loaded", window.supabase ? "" : "cdn.jsdelivr.net is blocked or offline (ad blocker, firewall or school/work network). Allow it, or download the file and point the <script> tags to your own copy.");
+    var base = c.URL.replace(/\/$/, ""), hdr = { apikey: c.ANON_KEY, Authorization: "Bearer " + c.ANON_KEY };
+    try {
+      var r = await timeout(8000, fetch(base + "/auth/v1/health", { headers: hdr }));
+      row("Supabase auth service", r.ok ? "ok" : "bad", "HTTP " + r.status, r.ok ? "" : "Check the project URL and anon key, and that the project isn't paused (free projects pause after a week of inactivity — open the Supabase dashboard to resume).");
+    } catch (e) { row("Supabase auth service", "bad", String(e.message || e), "The browser could not reach Supabase. Check the URL, your network/VPN, and any extension blocking requests."); }
+    try {
+      var r2 = await timeout(8000, fetch(base + "/rest/v1/site_config?select=key&limit=1", { headers: hdr }));
+      row("Database tables", r2.ok ? "ok" : "bad", "HTTP " + r2.status, r2.ok ? "" : (r2.status === 404 || r2.status === 400 ? "The tables are missing: run supabase-schema.sql in the Supabase SQL Editor." : "Check the anon key and the row-level-security policies from supabase-schema.sql."));
+    } catch (e) { row("Database tables", "bad", String(e.message || e)); }
+    row("Sign-in redirect URL", "warn", "Site URL: " + location.origin, "In Supabase → Authentication → URL Configuration, set Site URL to " + location.origin + " and add it to Redirect URLs, or confirmation/reset links will point elsewhere.");
+  }
+
+  async function feeds() {
+    var hosts = ["wss://stream.binance.com:9443", "wss://data-stream.binance.vision", "wss://stream.binance.us:9443"], any = false;
+    for (var i = 0; i < hosts.length; i++) {
+      var ok = await new Promise(function (resolve) {
+        var done = false, w;
+        function fin(v) { if (!done) { done = true; try { w.close(); } catch (e) {} resolve(v); } }
+        try { w = new WebSocket(hosts[i] + "/stream?streams=btcusdt@miniTicker"); w.onmessage = function () { fin(true); }; w.onerror = function () { fin(false); }; w.onclose = function () { fin(false); }; setTimeout(function () { fin(false); }, 5000); } catch (e) { resolve(false); }
+      });
+      any = any || ok;
+      row("Live price feed: " + hosts[i].replace("wss://", ""), ok ? "ok" : "warn", ok ? "streaming" : "no data");
+    }
+    if (!any) row("Live prices", "bad", "no WebSocket host reachable", "Prices will fall back to polling. Some networks and regions block Binance; the site tries other hosts and CoinGecko automatically.");
+    try {
+      var r = await timeout(8000, fetch("https://api.coingecko.com/api/v3/ping"));
+      row("CoinGecko (price fallback)", r.ok ? "ok" : "warn", "HTTP " + r.status);
+    } catch (e) { row("CoinGecko (price fallback)", "warn", String(e.message || e)); }
+    try {
+      var r3 = await timeout(8000, fetch("https://open.er-api.com/v6/latest/USD"));
+      row("Currency rates", r3.ok ? "ok" : "warn", "HTTP " + r3.status);
+    } catch (e) { row("Currency rates", "warn", String(e.message || e)); }
+  }
+
+  (async function () {
+    environment();
+    await new Promise(function (r) { setTimeout(r, 400); }); // let the deferred scripts load
+    await supabase();
+    await feeds();
+    row("Done", "ok", new Date().toString());
+  })();
+  document.getElementById("copy").onclick = function () {
+    var t = report.join("\n"), b = this;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function () { b.textContent = "Copied"; }, function () { prompt("Copy this report:", t); });
+  };
+})();
+</script>
+</body>
+</html>
