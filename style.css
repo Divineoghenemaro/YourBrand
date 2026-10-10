@@ -2337,5 +2337,6 @@ body.admin-lock > *:not(#adm-gate) { visibility: hidden; }
 #tv-hero,
 #tv-widget,
 #tv-overview,
-tv-ticker-tape,
-tv-market-overview { color-scheme: light; }
+.tv-ticker-tape,
+.market-overview,
+.tv-market-overview { color-scheme: light; background: transparent; }
