@@ -24,7 +24,7 @@
     // Put YOUR receiving wallet addresses here. These placeholders are NOT real addresses.
     METHODS: {
       BTC: { name: "Bitcoin", networks: {
-        "Bitcoin": { address: "REPLACE_WITH_YOUR_BTC_ADDRESS", fee: 5, re: /^(bc1[a-z0-9]{25,60}|[13][a-km-zA-HJ-NP-Z1-9]{25,34})$/ } } },
+        "Bitcoin": { address: "bc1qg0lexhg89k8relqp4ukfzp22dsncnaugesj3pd", fee: 5, re: /^(bc1[a-z0-9]{25,60}|[13][a-km-zA-HJ-NP-Z1-9]{25,34})$/ } } },
       ETH: { name: "Ethereum", networks: {
         "Ethereum (ERC20)": { address: "REPLACE_WITH_YOUR_ETH_ADDRESS", fee: 3, re: /^0x[a-fA-F0-9]{40}$/ } } },
       USDT: { name: "Tether", networks: {
