@@ -2334,6 +2334,7 @@ body.admin-lock > *:not(#adm-gate) { visibility: hidden; }
    makes the iframe backdrop transparent again, so the widgets show the dark page behind them. */
 .tv-wrap,
 .tradingview-widget-container,
+#tv-hero,
 #tv-widget,
 #tv-overview,
 tv-ticker-tape,
