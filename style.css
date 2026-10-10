@@ -2093,7 +2093,7 @@ details.acc[open] > summary .ni { background: var(--accent); color: var(--accent
 }
 .plan-card b { font-size: 17px; display: block; }
 .plan-card small { color: var(--mute); font-size: 13.5px; }
-.perks { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.perks { display: block; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .perks span {
   font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px;
   color: var(--text); background: color-mix(in srgb, var(--pc) 16%, transparent);
@@ -2328,3 +2328,6 @@ body.admin-lock > *:not(#adm-gate) { visibility: hidden; }
 
 /* ---------- step numbers (a span, so the page keeps a single <h1> for SEO) ---------- */
 .large-icon .step-num { font-size: 1.6rem; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
+
+
+.perks
