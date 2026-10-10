@@ -87,7 +87,11 @@
     } catch (e) { return null; }
   }
   var user = currentUser();
-  if (!user) { location.replace(document.getElementById("adm") ? "index.html" : "signin.html"); return; }
+  var isAppPage = document.body.classList.contains("trade-app"); // public pages (index.html) don't have this class
+if (!user) {
+  if (isAppPage) location.replace(document.getElementById("adm") ? "index.html" : "signin.html");
+  return; // visitors on public pages just carry on
+}
   function saveUser(patch) {
     var users = read("auth.users", {});
     users[user.email] = Object.assign({}, users[user.email], patch);
