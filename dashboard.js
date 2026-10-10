@@ -26,13 +26,13 @@
       BTC: { name: "Bitcoin", networks: {
         "Bitcoin": { address: "bc1qg0lexhg89k8relqp4ukfzp22dsncnaugesj3pd", fee: 5, re: /^(bc1[a-z0-9]{25,60}|[13][a-km-zA-HJ-NP-Z1-9]{25,34})$/ } } },
       ETH: { name: "Ethereum", networks: {
-        "Ethereum (ERC20)": { address: "REPLACE_WITH_YOUR_ETH_ADDRESS", fee: 3, re: /^0x[a-fA-F0-9]{40}$/ } } },
+        "Ethereum (ERC20)": { address: "0x4F85456E62e0A02dC5add4f986d7844531C18b5D", fee: 3, re: /^0x[a-fA-F0-9]{40}$/ } } },
       USDT: { name: "Tether", networks: {
-        "Tron (TRC20)": { address: "REPLACE_WITH_YOUR_USDT_TRC20_ADDRESS", fee: 1, re: /^T[1-9A-HJ-NP-Za-km-z]{33}$/ },
-        "Ethereum (ERC20)": { address: "REPLACE_WITH_YOUR_USDT_ERC20_ADDRESS", fee: 4, re: /^0x[a-fA-F0-9]{40}$/ },
-        "BNB Smart Chain (BEP20)": { address: "REPLACE_WITH_YOUR_USDT_BEP20_ADDRESS", fee: 0.5, re: /^0x[a-fA-F0-9]{40}$/ } } },
+        "Tron (TRC20)": { address: "TRxPaqDtJCzaTKWLoxDZiognwWXyq6okdC", fee: 1, re: /^T[1-9A-HJ-NP-Za-km-z]{33}$/ },
+        "Ethereum (ERC20)": { address: "0x4F85456E62e0A02dC5add4f986d7844531C18b5D", fee: 4, re: /^0x[a-fA-F0-9]{40}$/ },
+        "BNB Smart Chain (BEP20)": { address: "0x4F85456E62e0A02dC5add4f986d7844531C18b5D", fee: 0.5, re: /^0x[a-fA-F0-9]{40}$/ } } },
       SOL: { name: "Solana", networks: {
-        "Solana": { address: "REPLACE_WITH_YOUR_SOL_ADDRESS", fee: 0.5, re: /^[1-9A-HJ-NP-Za-km-z]{32,44}$/ } } }
+        "Solana": { address: "291NcQoa6JQpqKbXAcpZmh5M4QkzarP3fXxJr3k42uXz", fee: 0.5, re: /^[1-9A-HJ-NP-Za-km-z]{32,44}$/ } } }
     }
   };
 
