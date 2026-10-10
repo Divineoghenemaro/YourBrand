@@ -501,7 +501,7 @@
       setHTML($("#home-plans-body"), planCardsHTML(l, true));
       $("#home-plan-note").textContent = !p
         ? "Choose a plan to start trading. You can explore markets, charts and your wallet without one."
-        : "Upgrade fee is " + feeTxt + "% of the plan's minimum. Leverage and P/L = x factor squared.";
+        : "Upgrade fee is " + feeTxt + "% of the plan's minimum.";
     }
     if ($("#plan-body")) {
       setHTML($("#plan-body"), '<div class="plan-now"><span>Your balance</span><b>' + money(s.equity) + "</b></div>" +
