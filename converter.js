@@ -119,9 +119,6 @@
   var CONFIG = {
     TELEGRAM_URL: "https://t.me/yourbrand_support"}
 
-
-
-    
   var PL = [];
   function applySite() {
     if (!Site) return;
@@ -132,3 +129,4 @@
     if ($("#telegram-link")) $("#telegram-link").href = CONFIG.TELEGRAM_URL;
   }
   applySite();
+})();
