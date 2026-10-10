@@ -183,7 +183,7 @@
       var p = P[s];
       if (!p) return "";
       if (p.src === "daily") return "daily rate";
-      if (p.src === "ref") return p.kind === "stocks" && !CONFIG.FINNHUB_KEY ? "needs API key" : "no live price";
+      if (p.src === "ref") return p.kind === "stocks" && !CONFIG.FINNHUB_KEY ? "needs AP key" : "no live price";
       return "";
     },
     status: function () {
