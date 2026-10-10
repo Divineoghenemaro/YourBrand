@@ -2329,5 +2329,3 @@ body.admin-lock > *:not(#adm-gate) { visibility: hidden; }
 /* ---------- step numbers (a span, so the page keeps a single <h1> for SEO) ---------- */
 .large-icon .step-num { font-size: 1.6rem; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
 
-
-.perks
