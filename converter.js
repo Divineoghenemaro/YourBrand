@@ -118,9 +118,6 @@
     var st = Site.settings();
     CONFIG.UPGRADE_FEE_PCT = (+st.feePct || 0) / 100;
     CONFIG.TELEGRAM_URL = st.telegram || CONFIG.TELEGRAM_URL;
-    CONFIG.MIN_DEPOSIT = +st.minDeposit || 0;
-    CONFIG.MIN_WITHDRAW = +st.minWithdraw || 0;
-    CONFIG.AUTO_CONFIRM_MS = (+st.autoConfirmSec || 0) * 1000;
     PL = Site.plans();
     CONFIG.PLANS = PL;
     if ($("#telegram-link")) $("#telegram-link").href = CONFIG.TELEGRAM_URL;
