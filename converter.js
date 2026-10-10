@@ -116,7 +116,6 @@
   function applySite() {
     if (!Site) return;
     var st = Site.settings();
-    CONFIG.UPGRADE_FEE_PCT = (+st.feePct || 0) / 100;
     CONFIG.TELEGRAM_URL = st.telegram || CONFIG.TELEGRAM_URL;
     PL = Site.plans();
     CONFIG.PLANS = PL;
