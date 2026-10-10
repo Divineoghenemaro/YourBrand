@@ -111,7 +111,17 @@
   update();
 })();
 
+(function () {
+  "use strict";
 
+  var DB = window.DB || { enabled: false };
+  var Site = DB.Site;
+  var CONFIG = {
+    TELEGRAM_URL: "https://t.me/yourbrand_support"}
+
+
+
+    
   var PL = [];
   function applySite() {
     if (!Site) return;
