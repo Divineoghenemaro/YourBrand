@@ -110,19 +110,3 @@
   setInterval(update, 1000);
   update();
 })();
-
-  var DB = window.DB || { enabled: false };
-  var Site = DB.Site;
-  var CONFIG = {
-    TELEGRAM_URL: "https://t.me/yourbrand_support"}
-
-  var PL = [];
-  function applySite() {
-    if (!Site) return;
-    var st = Site.settings();
-    CONFIG.TELEGRAM_URL = st.telegram || CONFIG.TELEGRAM_URL;
-    PL = Site.plans();
-    CONFIG.PLANS = PL;
-    if ($("#telegram-link")) $("#telegram-link").href = CONFIG.TELEGRAM_URL;
-  }
-  applySite();
