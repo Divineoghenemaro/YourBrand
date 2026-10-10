@@ -1186,9 +1186,9 @@ if (!user) {
     return DB.pushLedger(l, l.rev).catch(warn);
   }
   function localSignOut() {
-    try { localStorage.removeItem("auth.session"); } catch (e) {}
-    location.replace("signin.html");
-  }
+  try { localStorage.removeItem("auth.session"); } catch (e) {}
+  if (isAppPage) location.replace("signin.html"); // never bounce someone off a public page
+}
   function syncAll() {
     if (!DB.enabled || syncing) return Promise.resolve();
     syncing = true;
