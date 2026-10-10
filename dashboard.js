@@ -723,7 +723,7 @@
     var pc = s.inPos ? (s.pnl / s.inPos) * 100 : 0, sub = $("#balance-sub"), lv = levOf(planOf(l));
     sub.className = s.inPos ? cls(s.pnl) : "";
     sub.style.fontWeight = "700";
-    sub.textContent = s.inPos ? "Open P&L " + signed(s.pnl) + " (" + pct(pc) + ")" + (lv > 1 ? " · ×" + lv + " leverage" : "") : s.equity > 0 ? "No open trades" : "Deposit funds to start trading";
+    sub.textContent = s.inPos ? "Open P&L " + signed(s.pnl) + " (" + pct(pc) + ")" : s.equity > 0 ? "No open trades" : "Deposit funds to start trading";
     $("#stat-avail").textContent = money(s.cash);
     $("#stat-inpos").textContent = money(s.inPos);
     $("#stat-pnl").textContent = signed(s.pnl);
