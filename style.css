@@ -2329,3 +2329,12 @@ body.admin-lock > *:not(#adm-gate) { visibility: hidden; }
 /* ---------- step numbers (a span, so the page keeps a single <h1> for SEO) ---------- */
 .large-icon .step-num { font-size: 1.6rem; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
 
+/* TradingView widgets: the page declares color-scheme "light dark", which makes browsers paint an opaque
+   white backdrop behind these (light-scheme) iframes in dark mode. Telling the containers they are "light"
+   makes the iframe backdrop transparent again, so the widgets show the dark page behind them. */
+.tv-wrap,
+.tradingview-widget-container,
+#tv-widget,
+#tv-overview,
+tv-ticker-tape,
+tv-market-overview { color-scheme: light; }
