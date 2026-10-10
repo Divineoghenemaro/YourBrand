@@ -835,7 +835,7 @@
     $("#trade-change").textContent = ok ? pct(p.change) + " (24h)" : Feed.note(s) || "No live price";
     $("#trade-change").className = ok ? cls(p.change) : "";
     $("#trade-avail").textContent = money(l.cash);
-    $("#trade-lev").textContent = plan ? "×" + lv + " (" + plan.name + " x" + plan.x + ")" : "—";
+    $("#trade-lev").textContent = plan ? "×" + lv + " (" + plan.name ")" : "—";
     $("#trade-bp").textContent = plan ? money(l.cash * lv) : "—";
     $("#trade-size").textContent = amt > 0 && plan ? money(amt * lv) : "—";
     $("#est-units").textContent = ok && amt > 0 ? units((amt * lv) / p.price) + " " + s.split("/")[0] : "—";
