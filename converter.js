@@ -111,9 +111,6 @@
   update();
 })();
 
-(function () {
-  "use strict";
-
   var DB = window.DB || { enabled: false };
   var Site = DB.Site;
   var CONFIG = {
@@ -129,4 +126,3 @@
     if ($("#telegram-link")) $("#telegram-link").href = CONFIG.TELEGRAM_URL;
   }
   applySite();
-})();
