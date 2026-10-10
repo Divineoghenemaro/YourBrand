@@ -996,7 +996,7 @@
       });
       track("deposit_request", { coin: coinK });
       $("#d-amt").value = "";
-      say("#e-dep", CONFIG.AUTO_CONFIRM_MS ? "Deposit request received. It will be credited after confirmation." : "Deposit request received. It will be credited once an admin confirms it.", true);
+      say("#e-dep", CONFIG.AUTO_CONFIRM_MS ? "Deposit request received. It will be credited after confirmation." : "Deposit request received. It will be credited once confirmed.", true);
       renderLive();
     };
     $("#w-submit").onclick = function () {
